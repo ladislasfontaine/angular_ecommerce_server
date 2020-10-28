@@ -1,0 +1,34 @@
+version: '3.7'
+
+services: 
+  
+  db:
+    image: mysql
+    container_name: angular_ecommerce_db
+    hostname: angular_ecommerce_db
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_USER: user
+      MYSQL_PASSWORD: secret
+      MYSQL_DATABASE: angular_ecommerce
+    restart: always
+    volumes:
+      - ./db/:/var/lib/mysql
+    ports:
+      - 3308:3306
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: angular_ecommerce_phpmyadmin
+    environment: 
+      PMA_HOST: angular_ecommerce_db
+      MYSQL_ROOT_PASSWORD: secret
+    restart: always
+    ports: 
+      - 8899:80
+
+  # server:
+  #   container_name: angular_ecommerce_server
+  #   build: .
+  #   ports:
+  #     - 3000:3000
