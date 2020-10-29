@@ -3,9 +3,9 @@ const MySqli = require('mysqli');
 let conn = new MySqli({
   host: 'localhost',
   port: 3308,
-  user: 'root',
-  passwd: 'AngularEcommerceDev2020!',
-  db: 'angular_ecommerce'
+  user: 'user',
+  passwd: 'secret',
+  db: 'angular-ecommerce'
 });
 
 let db = conn.emit(false, '');

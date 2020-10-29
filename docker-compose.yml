@@ -11,7 +11,7 @@ services:
       MYSQL_DATABASE: angular-ecommerce
     restart: always
     volumes:
-      - ./mysql_data:/var/lib/mysql
+      - ./mysql-data:/var/lib/mysql
     ports:
       - 3308:3306
 
