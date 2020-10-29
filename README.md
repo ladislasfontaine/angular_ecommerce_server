@@ -15,7 +15,12 @@ To stop containers use:
 ## Access PhpMyAdmin
 
 * Navigate to `localhost:8080`
-* user: `root`
-* password: `AngularEcommerceDev2020!`
+* user: `user`
+* password: `secret`
 
-You should see `angular_ecommerce` database. If empty, you will have to populate it, going into PhpMyAdmin `Import` section and using the file in `./db/init.sql`.
+You should see `angular-ecommerce` database. If empty, you will have to populate it :
+* click on `angular-ecommerce` on the left panel
+* go into PhpMyAdmin `Import` section
+* import the file `./db/init.sql`
+* click on `Execute`
+* check that `angular-ecommerce` has been populated
