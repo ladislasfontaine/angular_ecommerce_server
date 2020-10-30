@@ -29,6 +29,7 @@ router.get('/', function(req, res) {
       'p.price',
       'p.quantity',
       'p.image',
+      'p.description',
       'p.id'
     ])
     .slice(startValue, endValue)
