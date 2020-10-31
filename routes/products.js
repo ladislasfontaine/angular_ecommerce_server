@@ -63,6 +63,7 @@ router.get('/:prodId', (req, res) => {
       'p.quantity',
       'p.image',
       'p.images',
+      'p.description',
       'p.id'
     ])
     .filter({'p.id' : productId})
@@ -105,6 +106,7 @@ router.get('/category/:catName', (req, res) => {
       'p.price',
       'p.quantity',
       'p.image',
+      'p.description',
       'p.id' 
     ])
     .slice(startValue, endValue)
