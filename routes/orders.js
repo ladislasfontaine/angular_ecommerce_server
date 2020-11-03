@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
+const bodyParser = require('body-parser');
 const { database } = require('../config/helpers');
+
+const jsonParser = bodyParser.json()
 
 /* GET ALL ORDERS */
 router.get('/', (req, res) => {
@@ -38,7 +41,7 @@ router.get('/', (req, res) => {
 });
 
 /* GET SINGLE ORDER */
-router.get('/:id', (req, res) => {
+router.get('/:id', async (req, res) => {
   const orderId = req.params.id;
 
   database.table(`orders_details as od`)
@@ -75,7 +78,7 @@ router.get('/:id', (req, res) => {
 });
 
 /* PLACE A NEW ORDER */
-router.post('/new', (req, res) => {
+router.post('/new', jsonParser, async (req, res) => {
   let { userId, products } = req.body;
 
   if (userId !== null && userId > 0 && !isNaN(userId)) {
@@ -90,7 +93,7 @@ router.post('/new', (req, res) => {
               .filter({id: p.id})
               .withFields(['quantity'])
               .get();
-            let inCart = p.incart;
+            let inCart = parseInt(p.incart);
 
             // deduct the number of products ordered from the quantity column
             if (data.quantity > 0) {
@@ -106,7 +109,7 @@ router.post('/new', (req, res) => {
               .insert({
                 order_id: newOrderId,
                 product_id: p.id,
-                quantity: inCart,
+                quantity: inCart
               }).then(newId => {
                 database.table('products')
                   .filter({id: p.id})
