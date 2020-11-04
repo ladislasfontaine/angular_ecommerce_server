@@ -64,7 +64,9 @@ router.get('/:id', async (req, res) => {
       'p.title as name',
       'p.description',
       'p.price',
-      'u.username'
+      'u.username',
+      'p.image',
+      'od.quantity as quantityOrdered'
     ])
     .filter({'o.id': orderId})
     .getAll()
