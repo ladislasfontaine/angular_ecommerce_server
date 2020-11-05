@@ -117,9 +117,8 @@ router.post('/new', jsonParser, async (req, res) => {
                   .filter({id: p.id})
                   .update({
                     quantity: data.quantity
-                  }).then(successNum => {
-                    console.log(`Number returned by product quantity update: ${successNum}`);
-                  }).catch(err => console.log(err));
+                  }).then(successNum => {})
+                  .catch(err => console.log(err));
               }).catch(err => console.log(err));
           });
         } else {

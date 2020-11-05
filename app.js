@@ -16,10 +16,14 @@ app.use(cors({
 // Import Routes
 const productsRoute = require('./routes/products');
 const ordersRoute = require('./routes/orders');
+const authRoute = require('./routes/auth');
+const usersRoute = require('./routes/users');
 
 // Use Routes
 app.use('/api/products', productsRoute);
 app.use('/api/orders', ordersRoute);
+app.use('/api/auth', authRoute);
+app.use('/api/users', usersRoute);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
