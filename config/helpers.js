@@ -52,21 +52,22 @@ module.exports = {
   isPasswordAndUserMatch: async (req, res, next) => {
     const myPlainTextPassword = req.body.password;
     const myEmail = req.body.email;
-    const user = db.table('users')
+    const user = await db.table('users')
       .filter({$or:[{email: myEmail}, {username: myEmail}]})
       .get();
 
     if (user) {
-      const match = await bcrypt.compare(myPlainTextPassword, user.password);
-      if (match) {
-        req.username = user.username;
-        req.email = user.email;
-        next();
-      } else {
-        res.status(401).send('Username or password incorrect.');
-      }
+      bcrypt.compare(myPlainTextPassword, user.password, function(err, result) {
+        if (result) {
+          req.username = user.username;
+          req.email = user.email;
+          next();
+        } else {
+          res.status(401).send({errors: 'Username or password incorrect.'});
+        }
+      });
     } else {
-      res.status(401).send('Username or password incorrect.');
+      res.status(401).send({errors: 'Username or password incorrect.'});
     }
   }
 };
