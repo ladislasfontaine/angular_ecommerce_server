@@ -1,6 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const { database } = require('../config/helpers');
+const bodyParser = require('body-parser');
+const Product = require('../models/Product');
+
+const jsonParser = bodyParser.json();
 
 /* GET ALL PRODUCTS */
 router.get('/', function(req, res) {
@@ -46,6 +50,32 @@ router.get('/', function(req, res) {
       }
     }).catch(err => console.log(err));
 });
+
+/* ADD A PRODUCT TO MONGODB */
+router.post('/mongo/new', jsonParser, async (req, res) => {
+  console.log(req.body);
+  const product = new Product({
+    name: req.body.name,
+    description: req.body.description,
+    image: req.body.image,
+    images: req.body.images,
+    // price: parseInt(req.body.price),
+    // quantity: parseInt(req.body.quantity),
+    category: req.body.category
+  });
+  console.log('TEST1');
+  try {
+    console.log('TEST2');
+    const savedProduct = await product.save();
+    console.log('TEST3');
+    res.status(200).json(savedProduct);
+  } catch (err) {
+    res.json({ message: err });
+  }
+});
+
+/* GET ALL PRODUCTS FROM MONGODB */
+/* GET ONE PRODUCT FROM MONGODB */
 
 /* GET SINGLE PRODUCT */
 router.get('/:prodId', (req, res) => {
