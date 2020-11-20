@@ -53,21 +53,17 @@ router.get('/', function(req, res) {
 
 /* ADD A PRODUCT TO MONGODB */
 router.post('/mongo/new', jsonParser, async (req, res) => {
-  console.log(req.body);
   const product = new Product({
     name: req.body.name,
     description: req.body.description,
     image: req.body.image,
     images: req.body.images,
-    // price: parseInt(req.body.price),
-    // quantity: parseInt(req.body.quantity),
+    price: req.body.price,
+    quantity: req.body.quantity,
     category: req.body.category
   });
-  console.log('TEST1');
   try {
-    console.log('TEST2');
     const savedProduct = await product.save();
-    console.log('TEST3');
     res.status(200).json(savedProduct);
   } catch (err) {
     res.json({ message: err });
